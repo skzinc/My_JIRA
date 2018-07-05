@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Project home page</title>
+
+<style>
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+.active {
+    background-color: #4CAF50;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #111;
+}
+</style>
+</head>
+<body>
+<h1>This is Project list!</h1><hr>
+
+<ul>
+  <li><a  href="/">Company Details</a></li>
+  <li><a class="active" href="/project">Project Details</a></li>
+  <li><a href="/project">Project Modules</a></li>
+  <li><a href="/employee">Employee Details</a></li>
+</ul>
+
+<hr><br>
+<table border="1">
+    <thead>
+    <th>Company Name</th>
+    <th>Project Name</th>
+    <th>Project Start Date</th>
+    <th>Project End Date</th>
+    <th>Project Code</th>
+    <th>CREATED AT</th>
+    <th>UPDATED AT</th>
+    <th>Actions</th>
+    </thead>
+
+    <tbody>
+    {% for c in project %}
+    <tr>
+        <td>{{ c.company }}</td>
+        <td>{{ c.name }}</td>
+        <td>{{ c.start_date }}</td>
+        <td>{{ c.end_date }}</td>
+        <td>{{ c.project_code }}</td>
+        <td>{{ c.created_at }}</td>
+        <td>{{ c.updated_at }}</td>
+        <td>
+            <form method="post">
+                {% csrf_token %}
+                <input type="submit" formaction="edit/{{c.id}}" value="EDIT ">
+                <input type="submit" formaction="delete/{{c.id}}" value="DELETE">
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table><hr>
+<br><br>
+<form><input type="submit" formaction="p_entry/" value="CREATE NEW ENTRY"></form>
+<h3>This is Project Module Table!</h3>
+
+<table border="1">
+    <thead>
+    <th>Project Name</th>
+    <th>Module Code</th>
+    <th>Module Name</th>
+    <th>Employee List</th>
+    <th>Project Assigned To</th>
+
+    <th>CREATED AT</th>
+    <th>UPDATED AT</th>
+    <th>Project End Date</th>
+    <th>Actions</th>
+    </thead>
+
+    <tbody>
+    {% for i in project_module %}
+    <tr>
+        <td>{{ i.project_name }}</td>
+        <td>{{ i.m_code }}</td>
+        <td>{{ i.name }}</td>
+        <td>{{ i.employee }}</td>
+        <td>{{ i.assign }}</td>
+        <td>{{ i.created_at }}</td>
+        <td>{{ i.updated_at }}</td>
+        <td>{{ i.end_date }}</td>
+        <td>
+            <form method="post">
+                {% csrf_token %}
+                <input type="submit" formaction="edit/{{i.id}}" value="EDIT ">
+                <input type="submit" formaction="delete_module/{{i.id}}" value="DELETE">
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table><hr>
+<br><br>
+<form><input type="submit" formaction="pm_entry/" value="CREATE NEW ENTRY"></form>
+
+
+</body>
+</html>
+

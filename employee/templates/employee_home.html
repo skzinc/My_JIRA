@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee home page</title>
+<style>
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+.active {
+    background-color: #4CAF50;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #111;
+}
+</style>
+</head>
+<body>
+<h1>This is Employee list!</h1><hr>
+
+<ul>
+  <li><a href="/">Company Details</a></li>
+  <li><a href="/project">Project Details</a></li>
+  <li><a href="/project">Project Modules</a></li>
+  <li><a class="active" href="/employee">Employee Details</a></li>
+</ul>
+
+<hr><br>
+<table border="1">
+    <thead>
+    <th>Employee Code</th>
+    <th>Name</th>
+    <th>Age</th>
+    <th>Gender</th>
+    <th>Email</th>
+    <th>Contact Number </th>
+    <th>Salary</th>
+    <th>ROLE</th>
+    <th>CREATED AT</th>
+    <th>UPDATED AT</th>
+    <th>Actions</th>
+    </thead>
+
+    <tbody>
+    {% for e in employee %}
+    <tr>
+        <td>{{ e.code }}</td>
+        <td>{{ e.name }}</td>
+        <td>{{ e.age }}</td>
+        <td>{{ e.gender }}</td>
+        <td>{{ e.email }}</td>
+        <td>{{ e.mobile }}</td>
+        <td>{{ e.salary }}</td>
+        <td>{{ e.role }}</td>
+        <td>{{ e.created_at }}</td>
+        <td>{{ e.updated_at }}</td>
+        <td>
+            <form method="post">
+                {% csrf_token %}
+                <input type="submit" formaction="edit/{{e.id}}" value="EDIT ">
+                <input type="submit" formaction="delete/{{e.id}}" value="DELETE">
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table><hr>
+<br><br>
+<form><input type="submit" formaction="create/" value="CREATE NEW ENTRY"></form>
+
+</body>
+</html>
+
