@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Company home page</title>
+<style>
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+.active {
+    background-color: #4CAF50;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #111;
+}
+</style>
+</head>
+<body>
+<h1>This is company list!</h1><hr>
+<ul>
+  <li><a class="active" href="/">Company Details</a></li>
+  <li><a href="project/">Project Details</a></li>
+  <li><a href="project/">Project Modules</a></li>
+  <li><a href="employee/">Employee Details</a></li>
+</ul>
+
+<hr><br>
+<table border="1">
+    <thead>
+    <th>Company Code</th>
+    <th>Company Name</th>
+    <th>Location</th>
+    <th>Category</th>
+    <th>Project</th>
+    <th>Description</th>
+    <th>CREATED AT</th>
+    <th>UPDATED AT</th>
+    <th>Actions</th>
+    </thead>
+
+    <tbody>
+    {% for c in company %}
+    <tr>
+        <td>{{ c.c_code }}</td>
+        <td>{{ c.c_name}}</td>
+        <td>{{ c.c_location }}</td>
+        <td>{{ c.c_category }}</td>
+        <td>{{ c.c_projects}}</td>
+        <td>{{ c.c_description }}</td><td>{{ c.created_at }}</td>
+        <td>{{ c.updated_at }}</td>
+        <td>
+            <form method="post">
+                {% csrf_token %}
+                <a href="update_company/{{c.id}}" > Edit</a>
+                <input type="submit" formaction="delete/{{c.id}}" value="DELETE">
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table><hr>
+<br><br>
+<form><input type="submit" formaction="create/" value="CREATE NEW ENTRY"></form>
+
+</body>
+</html>
+
